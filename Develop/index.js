@@ -1,11 +1,12 @@
 // TODO: Include packages needed for this application
-const inquirer = require("inquirer");
+const inquirer = require('inquirer');
 const fs = require('fs');
-const utils = require ("utils");
+const utils = require('./utils');
 
-const generatorMarkdown = required('./utils/generatorMarkdown');
+const generatorMarkdown = require('./utils/generatorMarkdown');
 
 // TODO: Create an array of questions for user input
+
 
 // Start of questions array and title 
 const questions = [{
@@ -83,8 +84,16 @@ const questions = [{
 {
     type: "list",
     message: "What license is being used for this application?",
-    choices: ['None', 'Apache', 'Boost', 'BSD']
+    choices: ['None', 'Apache', 'Boost', 'BSD'],
     name: "License",
+    validate: licenseInput = () => {
+        if (licenseInput) {
+            return true;
+        } else {
+            console.log("Please select one of the four options")
+            return false;
+        }
+    }
 }, 
 
 
@@ -104,11 +113,35 @@ const questions = [{
 }, 
 
 
+// Testing
+{
+    type: "input",
+    message: "How should someone test this application?",
+    name: "Testing",
+    validate: testingInput => {
+        if (testingInput) {
+            return true;
+        } else {
+            console.log('Please provide testing instructions or say "none".');
+            return false;
+        }
+    }
+}, 
+
+
 // Questions
 {
     type: "input",
-    message: "Add contact information for inquiries.",
+    message: "Add your github name for questions",
     name: "Questions",
+    validate: questionsInput => {
+        if (questionsInput) {
+            return true;
+        } else {
+            console.log('Please add your github username.')
+            return false;
+        }
+    }
 }, 
 
 
@@ -156,7 +189,15 @@ function writeToFile(fileName, data) {
 }
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    inquirer.createPromptModule(questions)
+        .then(function(data) {
+            writeToFile("README.md", generatorMarkdown(data));
+            console.log(data)
+        })
+}
 
 // Function call to initialize app
 init();
+
+module.exports = questions;
