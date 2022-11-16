@@ -4,7 +4,7 @@ const index = require('../index.js');
 
 
 // TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
+// License badge render
 function renderLicenseBadge(license) {
   let badge = '';
     if(license === 'Apache' ) {
@@ -20,7 +20,7 @@ function renderLicenseBadge(license) {
 }
 
 // TODO: Create a function that returns the license link
-// If there is no license, return an empty string
+// License link render
 function renderLicenseLink(license) {
   let licenseLink = '';
     if (license === 'Apache') {
@@ -36,7 +36,7 @@ function renderLicenseLink(license) {
 }
 
 // TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
+// License section render
 function renderLicenseSection(license) {
   let licenseSection = ''
     if (license === 'None') {
@@ -50,10 +50,10 @@ function renderLicenseSection(license) {
 // This is the README layout
 function generateMarkdown(data) {
   return `
-  # ${data.title}
+  # ${data.Title}
   # Description
   ${data.Description}
-
+  
   # Table of contents 
   * [Installation](#installation) 
   * [Usage](#usage) 
